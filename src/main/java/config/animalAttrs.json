@@ -1,0 +1,107 @@
+{
+  "Wolf": {
+    "weight": 50,
+    "foodVolume": 8,
+    "moveSpeed": 3,
+    "icon": "🐺",
+    "type": "Wolf"
+  },
+  "Snake": {
+    "weight": 15,
+    "foodVolume": 3,
+    "moveSpeed": 1,
+    "icon": "🐍",
+    "type": "Snake"
+  },
+  "Fox": {
+    "weight": 8,
+    "foodVolume": 2,
+    "moveSpeed": 2,
+    "icon": "🦊",
+    "type": "Fox"
+  },
+  "Bear": {
+    "weight": 500,
+    "foodVolume": 80,
+    "moveSpeed": 2,
+    "icon": "🐻",
+    "type": "Bear"
+  },
+  "Eagle": {
+    "weight": 6,
+    "foodVolume": 1,
+    "moveSpeed": 3,
+    "icon": "🦅",
+    "type": "Eagle"
+  },
+  "Horse": {
+    "weight": 400,
+    "foodVolume": 60,
+    "moveSpeed": 4,
+    "icon": "🐎",
+    "type": "Horse"
+  },
+  "Deer": {
+    "weight": 300,
+    "foodVolume": 50,
+    "moveSpeed": 4,
+    "icon": "🦌",
+    "type": "Deer"
+  },
+  "Rabbit": {
+    "weight": 2,
+    "foodVolume": 0.45,
+    "moveSpeed": 2,
+    "icon": "🐇",
+    "type": "Rabbit"
+  },
+  "Mouse": {
+    "weight": 0.05,
+    "foodVolume": 0.01,
+    "moveSpeed": 1,
+    "icon": "🐁",
+    "type": "Mouse"
+  },
+  "Goat": {
+    "weight": 60,
+    "foodVolume": 10,
+    "moveSpeed": 3,
+    "icon": "🐐",
+    "type": "Goat"
+  },
+  "Sheep": {
+    "weight": 70,
+    "foodVolume": 15,
+    "moveSpeed": 3,
+    "icon": "🐑",
+    "type": "Sheep"
+  },
+  "Hog": {
+    "weight": 400,
+    "foodVolume": 50,
+    "moveSpeed": 2,
+    "icon": "🐗",
+    "type": "Hog"
+  },
+  "Buffalo": {
+    "weight": 700,
+    "foodVolume": 100,
+    "moveSpeed": 3,
+    "icon": "🐃",
+    "type": "Buffalo"
+  },
+  "Duck": {
+    "weight": 1,
+    "foodVolume": 0.15,
+    "moveSpeed": 4,
+    "icon": "🦆",
+    "type": "Duck"
+  },
+  "Caterpillar": {
+    "weight": 0.01,
+    "foodVolume": 0.01,
+    "moveSpeed": 0,
+    "icon": "🐛",
+    "type": "Caterpillar"
+  }
+}

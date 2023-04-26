@@ -1,0 +1,18 @@
+{
+  "Wolf": 30,
+  "Snake": 30,
+  "Fox": 30,
+  "Bear": 5,
+  "Eagle": 20,
+  "Horse": 20,
+  "Deer": 20,
+  "Rabbit": 150,
+  "Mouse": 500,
+  "Goat": 140,
+  "Sheep": 140,
+  "Hog": 50,
+  "Buffalo": 10,
+  "Duck": 200,
+  "Caterpillar": 1000,
+  "Plant": 200
+}

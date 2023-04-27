@@ -110,19 +110,21 @@ public abstract class Animal extends Entity {
     }
 
     public void eat (Cell mycell){
-       // Set<String> cellAnimals = mycell.bioSphere.keySet();
+        // карта животных клетки, где количество животных > 0
         Map<String, ArrayList<Entity>> cellAnimals = mycell.getBioSphere().entrySet().stream()
                 .filter(a->a.getValue().size()>0).collect(Collectors.toMap(e-> e.getKey(), e-> e.getValue()));
-
         Set<String> myMenu = this.eatingMap.keySet();
+        // отфильтровываем животных клетки по подходящему текущему экземпляру меню
         Set<String> filteredAnimals = myMenu.stream()
                 .flatMap(n -> cellAnimals.keySet().stream().filter(p -> n.equals(p)))
                 .collect(Collectors.toCollection(HashSet::new));
         if (filteredAnimals.size() > 0) {
+            // меню с вероятностями
             HashMap<String, Integer> todaysMenu = new HashMap<>();
             for (String s: filteredAnimals) {
                 todaysMenu.put(s,this.eatingMap.get(s));
             }
+            // сортируем полученную карту по вероятности
             Map<String, Integer> sortedMenu = todaysMenu.entrySet().stream()
                     .sorted(Comparator.comparingInt(e -> -e.getValue()))
                     .collect(Collectors.toMap(

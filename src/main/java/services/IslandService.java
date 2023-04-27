@@ -9,15 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IslandService {
-    private static Island island;
+    private final Island island;
 
-
-    public static void progress(Island island)  {
-        IslandService.island = island;
-        startNewDay(island.getDays());
+    public IslandService(Island island) {
+        this.island = island;
     }
 
-    private static void startNewDay(int days) {
+
+    public void startNewDay(int days) {
         while (true) {
             Map<String, Integer> generatedCellAnimals ;
             Map<String, Integer> generatedIslandAnimals = new HashMap<>();
@@ -30,28 +29,30 @@ public class IslandService {
             if (days == 0) {
                 for (Cell[] rowCell : island.getField()) {
                     for (Cell cell : rowCell) {
-                        generatedCellAnimals = cell.generateLife();
-                        generatedIslandAnimals = UtilsService.mergeMaps(generatedCellAnimals, generatedIslandAnimals);
+                        CellService cellService = new CellService(cell);
+                        generatedCellAnimals = cellService.generateLife();
+                        generatedIslandAnimals = Utils.mergeMaps(generatedCellAnimals, generatedIslandAnimals);
                     }
                 }
                 getStats(generatedIslandAnimals, null, null, null);
             }
-            islandAnimals = UtilsService.getAnimalCount(island);
+            islandAnimals = Utils.getAnimalCount(island);
             for (Cell[] rowCell : island.getField()) {
                 for (Cell cell : rowCell) {
-                    cellNewBorns = cell.proceedLife(island);
-                    islandNewBorns = UtilsService.mergeMaps(cellNewBorns, islandNewBorns);
-                    cellDeaths = cell.killStarving();
-                    islandDeaths = UtilsService.mergeMaps(cellDeaths, islandDeaths);
+                    CellService cellService = new CellService(cell);
+                    cellNewBorns = cellService.proceedLife(island);
+                    islandNewBorns = Utils.mergeMaps(cellNewBorns, islandNewBorns);
+                    cellDeaths = cellService.killStarving();
+                    islandDeaths = Utils.mergeMaps(cellDeaths, islandDeaths);
                 }
             }
             getStats(null, islandNewBorns, islandDeaths, islandAnimals);
             island.setDays(++days);
-            UtilsService.proceed();
+            Utils.proceed();
         }
     }
 
-    private static void refreshIsland(){
+    private void refreshIsland(){
         for (Cell[] rowCell : island.getField()) {
             for (Cell cell : rowCell) {
                 // рефрешим животных: признак спаренности и проведенной охоты
@@ -66,7 +67,7 @@ public class IslandService {
                 }
                 // добавляем в каждую клетку рандомное количество растений до максимума (кроме первого дня)
                 if (island.getDays() != 0) {
-                    int entityAmount = UtilsService.getRandomInt(0, Cell.maxBioSphere.get("Plant"));
+                    int entityAmount = Utils.getRandomInt(0, Cell.maxBioSphere.get("Plant"));
                     int delta = entityAmount - cell.getBioSphere().get("Plant").size();
                     for (int i = 0; i < delta; i++) {
                         cell.getBioSphere().get("Plant").add(new Plant(cell.getRowNum(), cell.getColNum()));
@@ -76,7 +77,7 @@ public class IslandService {
         }
     }
 
-    public static void getStats(Map<String, Integer> generatedIslandAnimals,
+    public void getStats(Map<String, Integer> generatedIslandAnimals,
                                 Map<String, Integer> islandNewBorns,
                                 Map<String, Integer> islandDeaths,
                                 Map<String, Integer> islandAnimals){

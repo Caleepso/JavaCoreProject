@@ -1,11 +1,10 @@
 import models.entities.Island;
 import services.IslandService;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class Main {
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, ClassNotFoundException {
+    public static void main(String[] args) {
         Island island = Island.initialize();
-        IslandService.progress(island);
+        IslandService islandService = new IslandService(island);
+        islandService.startNewDay(island.getDays());
     }
 }

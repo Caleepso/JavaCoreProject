@@ -12,9 +12,9 @@ public class Wolf extends Animal {
     @Override
     public String toString() {
         return "Wolf{" +
-                "id=" + id +
-                " isCoupled=" + isCoupled +
-                " starvingDays=" + starvingDays +
+                "id=" + this.getId() +
+                " isCoupled=" + this.isCoupled() +
+                " starvingDays=" + this.getStarvingDays() +
                 '}';
     }
 

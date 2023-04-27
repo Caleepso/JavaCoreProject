@@ -2,9 +2,6 @@ package models.animals;
 
 import models.entities.Cell;
 import models.entities.Entity;
-import services.UtilsService;
-
-import java.util.Map;
 
 public class Fox extends Animal{
 
@@ -15,9 +12,9 @@ public class Fox extends Animal{
     @Override
     public String toString() {
         return "Fox{" +
-                "id=" + id +
-                " isCoupled=" + isCoupled +
-                " starvingDays=" + starvingDays +
+                "id=" + this.getId() +
+                " isCoupled=" + this.isCoupled() +
+                " starvingDays=" + this.getStarvingDays() +
                 '}';
     }
 

@@ -12,15 +12,19 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class UtilsService {
+public class Utils {
 
     public static void setHeader(){
-        System.out.println("\n" +
-                "\n" +
-                "▒█▀▀▀█ ▒█▀▀█ ▀▀█▀▀ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ \n" +
-                "▒█░░▒█ ▒█░░░ ░▒█░░ ▒█▄▄█ ▒█░░▒█ ▒█▀▀▄ \n" +
-                "▒█▄▄▄█ ▒█▄▄█ ░▒█░░ ▒█░░░ ▒█▄▄▄█ ▒█▄▄█");
-        System.out.println("\n" + "Введите параметры Вашего острова:" + "\n" + "--------------------------------");
+        System.out.println("""
+
+
+                ▒█▀▀▀█ ▒█▀▀█ ▀▀█▀▀ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█\s
+                ▒█░░▒█ ▒█░░░ ░▒█░░ ▒█▄▄█ ▒█░░▒█ ▒█▀▀▄\s
+                ▒█▄▄▄█ ▒█▄▄█ ░▒█░░ ▒█░░░ ▒█▄▄▄█ ▒█▄▄█""");
+        System.out.println("""
+
+                Введите параметры Вашего острова:
+                --------------------------------""");
     }
 
     public static int getRows() {
@@ -68,13 +72,13 @@ public class UtilsService {
         String answer;
         while (true) {
             answer = s.next();
-            if (!(answer.toLowerCase().equals("да") | answer.toLowerCase().equals("нет"))) {
+            if (!(answer.equalsIgnoreCase("да") | answer.equalsIgnoreCase("нет"))) {
                 System.out.print("(!) Введите \"да\" или \"нет\": ");
             } else {
                 break;
             }
         }
-        if (answer.toLowerCase().equals("нет")) {
+        if (answer.equalsIgnoreCase("нет")) {
             System.out.println(" ➔ Работа Острова завершена");
             System.exit(0);
         }
@@ -94,14 +98,12 @@ public class UtilsService {
     }
 
     public static Map<String, Integer> readJson(String fileName, String animalType) {
-        Object o = null;
+        Object o;
         JSONObject j;
         Map<String, Integer> map;
         try {
             o = new JSONParser().parse(new FileReader(fileName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
         j = (JSONObject) o;
@@ -120,14 +122,12 @@ public class UtilsService {
     }
 
     public static String getJsonAttr(String fileName, String animalType, String attr) {
-        Object o = null;
+        Object o;
         JSONObject j;
         String value;
         try {
             o = new JSONParser().parse(new FileReader(fileName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
         j = (JSONObject) o;
@@ -149,7 +149,7 @@ public class UtilsService {
     }
 
     public static Map<String, Integer> getAnimalCount(Island island) {
-        Map<String, Integer> animalCount = new HashMap<String, Integer>();
+        Map<String, Integer> animalCount = new HashMap<>();
         for (Cell[] rowCell : island.getField()) {
             for (Cell cell : rowCell) {
                 for (var entry : cell.getBioSphere().entrySet()) {

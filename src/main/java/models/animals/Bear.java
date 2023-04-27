@@ -2,7 +2,6 @@ package models.animals;
 
 import models.entities.Cell;
 import models.entities.Entity;
-import services.UtilsService;
 
 public class Bear extends Animal {
 
@@ -14,9 +13,9 @@ public class Bear extends Animal {
     @Override
     public String toString() {
         return "Bear{" +
-                "id=" + id +
-                " isCoupled=" + isCoupled +
-                " starvingDays=" + starvingDays +
+                "id=" + this.getId() +
+                " isCoupled=" + this.isCoupled() +
+                " starvingDays=" + this.getStarvingDays() +
                 '}';
     }
 

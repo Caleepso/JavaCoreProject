@@ -2,22 +2,22 @@ package models.animals;
 import models.entities.Cell;
 import models.entities.Island;
 import models.entities.Entity;
-import services.UtilsService;
+import services.Utils;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public abstract class Animal extends Entity {
-    protected final static String menu = "src/main/java/config/eatingMap.json";
-    protected final static String animalAttrsFile = "src/main/java/config/animalAttrs.json";
-    protected static int count = 0;
-    protected boolean isCoupled = false;
-    protected int id;
-    protected Map<String, Integer> eatingMap;
-    protected boolean huntedToday = false;
-    protected int starvingDays = 0;
-    protected double foodVolume;
-    protected int moveSpeed;
+    public final static String menu = "src/main/java/config/eatingMap.json";
+    public final static String animalAttrsFile = "src/main/java/config/animalAttrs.json";
+    private static int count = 0;
+    private boolean isCoupled = false;
+    private final int id;
+    private final Map<String, Integer> eatingMap;
+    private boolean huntedToday = false;
+    private int starvingDays = 0;
+    private final double foodVolume;
+    private final int moveSpeed;
     public int getMoveSpeed() {
         return moveSpeed;
     }
@@ -35,27 +35,26 @@ public abstract class Animal extends Entity {
     }
     public void setHuntedToday(boolean huntedToday) {this.huntedToday = huntedToday;}
     public boolean isHuntedToday() {return huntedToday;}
-
+    public int getId() {return id;}
 
     public Animal(int xPoint, int yPoint, String type) {
         super(xPoint, yPoint);
         Animal.count++;
         this.id = Animal.count;
         this.type = type;
-        this.eatingMap = UtilsService.readJson(menu, this.type);
-        this.weight = Double.parseDouble(UtilsService.getJsonAttr(animalAttrsFile, type,"weight"));
-        this.foodVolume = Double.parseDouble(UtilsService.getJsonAttr(animalAttrsFile, type,"foodVolume"));
-        this.moveSpeed = Integer.parseInt(UtilsService.getJsonAttr(animalAttrsFile, type,"moveSpeed"));
+        this.eatingMap = Utils.readJson(menu, this.type);
+        this.weight = Double.parseDouble(Utils.getJsonAttr(animalAttrsFile, type,"weight"));
+        this.foodVolume = Double.parseDouble(Utils.getJsonAttr(animalAttrsFile, type,"foodVolume"));
+        this.moveSpeed = Integer.parseInt(Utils.getJsonAttr(animalAttrsFile, type,"moveSpeed"));
     }
 
     public Entity move(int moveS, Island island){
-        int xNew = this.xPoint;
-        int yNew = this.yPoint;
-        Cell curCell = island.getField()[xPoint][yPoint];
+        int xNew = this.getxPoint();
+        int yNew = this.getyPoint();
         Cell moveToCell;
-        int move = UtilsService.getRandomInt(0, 4);
+        int move = Utils.getRandomInt(0, 4);
         // 0-направо, 1-вниз, 2-налево, 3-вверх
-        ArrayList<String> possiblePos = UtilsService.getIslandArray(island);
+        ArrayList<String> possiblePos = Utils.getIslandArray(island);
 
         for (int i = 0; i < moveS; i++) {
             if (move == 0)  yNew += 1;
@@ -64,7 +63,7 @@ public abstract class Animal extends Entity {
             else xNew -=1;
 
             String checkStr = Integer.toString(xNew) + Integer.toString(yNew);
-            List<String> matches = possiblePos.stream().filter(it -> it.equals(checkStr)).collect(Collectors.toList());
+            List<String> matches = possiblePos.stream().filter(it -> it.equals(checkStr)).toList();
             if (matches.size()<1) {
                 break;
             }
@@ -115,7 +114,7 @@ public abstract class Animal extends Entity {
                 .flatMap(n -> cellAnimals.keySet().stream().filter(p -> n.equals(p)))
                 .collect(Collectors.toCollection(HashSet::new));
         if (filteredAnimals.size() > 0) {
-            HashMap<String, Integer> todaysMenu = new HashMap<String, Integer>();
+            HashMap<String, Integer> todaysMenu = new HashMap<>();
             for (String s: filteredAnimals) {
                 todaysMenu.put(s,this.eatingMap.get(s));
             }

@@ -1,13 +1,13 @@
 package models.entities;
 
-import services.UtilsService;
+import services.Utils;
 
 import java.util.Arrays;
 
 public class Island {
-    private Cell[][] field;
-    private int rows;
-    private int cols;
+    private final Cell[][] field;
+    private final int rows;
+    private final int cols;
     private int days = 0;
     public int getDays() {
         return days;
@@ -31,18 +31,19 @@ public class Island {
     }
 
     public static Island initialize(){
-        UtilsService.setHeader();
-        int rows = UtilsService.getRows();
-        int cols = UtilsService.getCols();
+        Utils.setHeader();
+        int rows = Utils.getRows();
+        int cols = Utils.getCols();
 
         Island island = new Island(new Cell[rows][cols]);
 
         for (int i = 0; i < island.field.length; i++) {
             for (int j = 0; j < island.field[i].length; j++){
                 island.field[i][j] = new Cell(i,j);
+
             }
         }
-        System.out.println(String.format(" ➔ Инициализирован остров с размерами поля %d x %d", rows, cols));
+        System.out.printf(" ➔ Инициализирован остров с размерами поля %d x %d%n", rows, cols);
         return island;
     }
 

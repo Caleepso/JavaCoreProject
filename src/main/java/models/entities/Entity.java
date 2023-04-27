@@ -1,8 +1,8 @@
 package models.entities;
 
 public abstract class Entity {
-    protected int xPoint;
-    protected int yPoint;
+    private int xPoint;
+    private int yPoint;
     protected double weight;
     protected String type;
 

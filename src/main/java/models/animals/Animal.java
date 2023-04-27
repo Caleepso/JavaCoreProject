@@ -51,7 +51,9 @@ public abstract class Animal extends Entity {
     public Entity move(int moveS, Island island){
         int xNew = this.getxPoint();
         int yNew = this.getyPoint();
-        Cell moveToCell;
+        Cell curCell = island.getField()[this.getxPoint()][this.getyPoint()];
+        Cell moveToCell = null;
+        Entity entityToRemove = null;
         int move = Utils.getRandomInt(0, 4);
         // 0-направо, 1-вниз, 2-налево, 3-вверх
         ArrayList<String> possiblePos = Utils.getIslandArray(island);
@@ -68,15 +70,18 @@ public abstract class Animal extends Entity {
                 break;
             }
             else {
-                this.setxPoint(xNew);
-                this.setyPoint(yNew);
-                moveToCell = island.getField()[xNew][yNew];
-                moveToCell.getBioSphere().get(this.getType()).add(this);
-
-                return this;
+                if (xNew != this.getxPoint() && yNew != this.getyPoint()) {
+                    moveToCell = island.getField()[xNew][yNew];
+                }
             }
         }
-        return null;
+        if (moveToCell != null && (moveToCell.getRowNum()!= curCell.getRowNum() && moveToCell.getColNum()!= curCell.getColNum())){
+            this.setxPoint(xNew);
+            this.setyPoint(yNew);
+            moveToCell.getBioSphere().get(this.getType()).add(this);
+            entityToRemove = this;
+        }
+        return entityToRemove;
     }
 
     public Entity multiply(Cell myCell) {

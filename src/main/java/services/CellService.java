@@ -7,10 +7,7 @@ import models.entities.Entity;
 import models.entities.Island;
 import models.entities.Plant;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class CellService {
     private final Cell cell;
@@ -65,7 +62,9 @@ public class CellService {
                     newBorn = animal.multiply(cell);
                     // двигаемся
                     Entity animalToRemove = animal.move(animal.getMoveSpeed(), island);
-                    if (animalToRemove!=null) it.remove();
+                    if (animalToRemove!=null) {
+                       it.remove();
+                    }
                 }
                 if (newBorn != null) newBorns.add(newBorn);
             }
